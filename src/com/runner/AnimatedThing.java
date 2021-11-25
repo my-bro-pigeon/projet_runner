@@ -63,57 +63,57 @@ abstract public class AnimatedThing {
             this.posx +=84;
             if (this.posx ==504 ){ this.posx = 0;}}
         if (jump>0) {
+            if (this.tpsSaut < 105) {
+                this.y = this.y - 18;
+                this.tpsSaut = this.tpsSaut + 15;
+                this.posx = 0;
+                this.posy = 165;
+            }
+            if (this.tpsSaut < 210 && this.tpsSaut >= 105) {
+                this.y = this.y + 18;
+                this.tpsSaut = this.tpsSaut + 15;
+                this.posx = 84;
+                this.posy = 165;
+            }
+            if (this.tpsSaut >= 210) {
+                this.posy = 0;
+                this.indiceJump = false;
+                this.tpsSaut = 0;
+                this.jump = 0;
+            }
+        }
+        if (this.tir>0) {
+            this.posy = 330;
+            this.posx += 84;
+            if (this.posx == 504) {
+                this.indiceTir = false;
+                this.posy = 0;
+                this.posx = 0;
+                this.tir =0;
+            }
+        }
+        if (this.jumpTir>0) {
             if (this.tpsSaut < 100) {
                 this.y = this.y - 20;
                 this.tpsSaut = this.tpsSaut + 20;
                 this.posx = 0;
-                this.posy = 165;
+                this.posy = 495;
             }
             if (this.tpsSaut < 200 && this.tpsSaut >= 100) {
                 this.y = this.y + 20;
                 this.tpsSaut = this.tpsSaut + 20;
                 this.posx = 84;
-                this.posy = 165;
+                this.posy = 495;
             }
-        }
+
             if (this.tpsSaut >= 200) {
                 this.posy = 0;
                 this.indiceJump = false;
                 this.tpsSaut = 0;
-                this.jump =0;
+                this.indiceTir = false;
+                this.jumpTir=0;
             }
-            if (this.tir>0) {
-                this.posy = 330;
-                this.posx += 84;
-                if (this.posx == 504) {
-                    this.indiceTir = false;
-                    this.posy = 0;
-                    this.posx = 0;
-                    this.tir =0;
-                }
-            }
-            if (this.jumpTir>0) {
-                if (this.tpsSaut < 100) {
-                    this.y = this.y - 20;
-                    this.tpsSaut = this.tpsSaut + 20;
-                    this.posx = 0;
-                    this.posy = 495;
-                }
-                if (this.tpsSaut < 200 && this.tpsSaut >= 100) {
-                    this.y = this.y + 20;
-                    this.tpsSaut = this.tpsSaut + 20;
-                    this.posx = 84;
-                    this.posy = 495;
-                }
-
-                if (this.tpsSaut >= 200) {
-                    this.posy = 0;
-                    this.indiceJump = false;
-                    this.tpsSaut = 0;
-                    this.indiceTir = false;
-                    this.jumpTir=0;
-                }
-            }
+        }
 
 
         this.x +=15;
@@ -213,12 +213,20 @@ abstract public class AnimatedThing {
     public void setX(double x){
         this.x=x;
     }
+    public void setY(double y){
+        this.y=y;
+    }
+
 
     public double getPosx() {
         return posx;
     }
     public double getPosy() {
         return posy;
+    }
+
+    public void setHauteur(double hauteur) {
+        this.hauteur = hauteur;
     }
 
     public void setPosx(double posx) {

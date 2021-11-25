@@ -1,6 +1,7 @@
 package com.runner;
 
 import javafx.animation.AnimationTimer;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -9,6 +10,8 @@ import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 
+import java.util.ArrayList;
+
 
 public class GameScene extends Scene {
     private Camera camera;
@@ -16,11 +19,12 @@ public class GameScene extends Scene {
     private StaticThing backgroundRight;
     private StaticThing nbCoeur;
     private Hero hero;
-    private int tir = 0;
-    private int i = 0;
     private Pane pane;
+    private int j = 0;
     private Text texte= new Text("Hello World");
     private Text textePoke = new Text("afficher le nb de pokeball");
+    private ArrayList<Ennemi> dracaufeuList = new ArrayList<Ennemi>();
+
     private AnimationTimer timer = new AnimationTimer() {
         private long lastUpdate = 0;
         @Override
@@ -35,13 +39,26 @@ public class GameScene extends Scene {
                 hero.getImageView().setY(hero.getY());
                 textUpdate(hero.getX(),pane,texte);
 
-                    for (int i=0;i<hero.getProjectilist().size();i++){
+                for (int i=0;i<hero.getProjectilist().size();i++){
                     hero.getProjectilist().get(i).getImageView().setX(hero.getProjectilist().get(i).getX());
                     hero.getProjectilist().get(i).getImageView().setY(hero.getProjectilist().get(i).getY());
                     //System.out.println(hero.getProjectilist().get(i).getImagePath());
-                    //System.out.println("Vrai posotion:"+(hero.getProjectilist().get(i).getImageView().getX()));
-
                 }
+                j++;
+                if (j==20){
+                    newEnnemi(pane, dracaufeuList,90, 83, 650, 255, 0, 0,"D:\\java\\projet_runner\\dracaufeu.png");
+                    j=0;
+                }
+
+                for (int i = 0; i < dracaufeuList.size(); i++) {
+                    dracaufeuList.get(i).updateDracaufeu();
+                    dracaufeuList.get(i).getImageView().setX(dracaufeuList.get(i).getX());
+                    dracaufeuList.get(i).getImageView().setY(dracaufeuList.get(i).getY());
+                    if(dracaufeuList.get(i).getX()<=-50){supEnnemi(dracaufeuList.get(i),pane,dracaufeuList);}
+                }
+
+
+                //System.out.println("Vrai posotion:"+(hero.getImageView().getY()));
                 //System.out.println(hero.getX());
                 lastUpdate = l;
 
@@ -59,6 +76,7 @@ public class GameScene extends Scene {
         this.camera = new Camera(0,0, hero);
         this.backgroundLeft = new StaticThing("backgroundleft", -200+camera.getX(),0,800,400,path);
         this.backgroundRight = new StaticThing("backgroundRight", 600+camera.getX(),0,800,400,path);
+        pane.getChildren().addAll(backgroundLeft.getImageview(),backgroundRight.getImageview(),hero.getImageView(),nbCoeur.getImageview());
 
         pane.getChildren().add(texte);
         final Font times30BoldItalicFont = Font.font("Times New Roman", FontWeight.BOLD, FontPosture.ITALIC, 20);
@@ -74,7 +92,7 @@ public class GameScene extends Scene {
         pane.getChildren().add(pokeBall.getImageview());
         pokeBall.getImageview().setX(pokeBall.getX());
         pokeBall.getImageview().setY(pokeBall.getY());
-        this.timer.start();
+
 
     }
 
@@ -96,14 +114,11 @@ public class GameScene extends Scene {
 
     public AnimationTimer getTimer() { return timer;}
 
-    public void tir(){
-        tir++;
-    }
 
     public void textUpdate(Double positionHero, Pane p,Text texte){
         int x = (int) (Math.round(positionHero)/10);
-        texte.setText("Position du héros  : "+ x);
-        texte.setX(200);
+        texte.setText("Score  : "+ x);
+        texte.setX(250);
         texte.setY(20);
 
     }
@@ -114,6 +129,7 @@ public class GameScene extends Scene {
         texte.setX(565);
         texte.setY(25);
     }
+
 
     public void keyListener(){
         setOnKeyPressed((event)->{
@@ -140,4 +156,22 @@ public class GameScene extends Scene {
 
         });
     }
+
+    public void newEnnemi(Pane p, ArrayList<Ennemi> listEnnemi,double longueur, double hauteur, double x, double y, double posX, double posY,String path){
+        Ennemi ennemi = new Ennemi("ennemi", longueur,hauteur, x, y, path,posX,posY);
+        ennemi.getImageView().setViewport(new Rectangle2D(ennemi.getPosx(), ennemi.getPosy(),ennemi.getLongueur(), ennemi.getHauteur()));
+        addEnnemi(ennemi,p,listEnnemi);
+    }
+
+
+    public void addEnnemi(Ennemi ennemi, Pane p,ArrayList<Ennemi> listEnnemi){
+        p.getChildren().add(ennemi.getImageView());
+        listEnnemi.add(ennemi);
+    }
+
+    public void supEnnemi(Ennemi ennemi, Pane p,ArrayList<Ennemi> listEnnemi){
+        listEnnemi.remove(ennemi);
+        p.getChildren().remove(ennemi.getImageView());
+    }
+
 }
