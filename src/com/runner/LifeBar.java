@@ -2,7 +2,7 @@ package com.runner;
 
 import javafx.geometry.Rectangle2D;
 
-/* Cette classe sert à afficher le nombre de vies symbolisé par les pokeballs grisées ou non en haut à droite
+/* Cette classe sert à afficher le nombre de vies symbolisé par les pokeballs (grisées ou non) en haut à droite
 (comme durant les combats dans les jeux sur DS)*/
 
 public class LifeBar extends StaticThing{

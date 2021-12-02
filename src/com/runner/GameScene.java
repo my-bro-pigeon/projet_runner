@@ -62,7 +62,7 @@ public class GameScene extends Scene {
                     //génération et update des ennemis :
                     j++;
                     if (j == 50) {
-                        newEnnemi(pane, dracaufeuList, 90, 83, 650, 255, 0, 0, "D:\\java\\projet_runner\\dracaufeu.png");
+                        newEnnemi(pane, dracaufeuList, 90, 83, 650, 255, 0, 0, "D:\\java\\projet_runner\\images\\dracaufeu.png");
                         j = 0;
                     }
 
@@ -78,7 +78,7 @@ public class GameScene extends Scene {
                     //génération et update des badges
                     h++;
                     if(h==125){
-                        newEnnemi(pane, listBadge, 40,40,650,150,40* hero.getNbBadge(),0,"D:\\java\\projet_runner\\badge.png");
+                        newEnnemi(pane, listBadge, 40,40,650,150,40* hero.getNbBadge(),0,"D:\\java\\projet_runner\\images\\badge.png");
                         h=0;
                     }
                     for(int i=0;i<listBadge.size();i++){
@@ -175,9 +175,9 @@ public class GameScene extends Scene {
         this.camera = new Camera(0,0, hero);
         this.backgroundLeft = new StaticThing("backgroundleft", -200+camera.getX(),0,800,400,path);
         this.backgroundRight = new StaticThing("backgroundRight", 600+camera.getX(),0,800,400,path);
-        this.blackScreen = new Projectil("blackScreen",600,10,0,0,"D:\\java\\projet_runner\\blackscreen.png",0,0,0);
+        this.blackScreen = new Projectil("blackScreen",600,10,0,0,"D:\\java\\projet_runner\\images\\blackscreen.png",0,0,0);
 
-        this.badgeBox = new StaticThing("boite de badges",370,6,141,80,"D:\\java\\projet_runner\\boite_badge.png");
+        this.badgeBox = new StaticThing("boite de badges",370,6,141,80,"D:\\java\\projet_runner\\images\\boite_badge.png");
         badgeBox.getImageview().setViewport(new Rectangle2D(0,0,141,80));
         pane.getChildren().addAll(backgroundLeft.getImageview(),backgroundRight.getImageview(),hero.getImageView(),nbCoeur.getImageview(),badgeBox.getImageview());
 
@@ -192,7 +192,7 @@ public class GameScene extends Scene {
         textePoke.setFill(Color.RED);
         updateAfficheNbPoke(hero.getNbFireball(), textePoke);
 
-        StaticThing pokeBall = new StaticThing("pokeball",540,10,20,20,"D:\\java\\projet_runner\\poke1.png");
+        StaticThing pokeBall = new StaticThing("pokeball",540,10,20,20,"D:\\java\\projet_runner\\images\\poke1.png");
         pane.getChildren().add(pokeBall.getImageview());
         pokeBall.getImageview().setX(pokeBall.getX());
         pokeBall.getImageview().setY(pokeBall.getY());
@@ -218,7 +218,7 @@ public class GameScene extends Scene {
 
     public AnimationTimer getTimer() { return timer;}
 
-//Methode qui permet d'update la texte qui affiche la position du héros
+//Methode qui permet d'update le texte qui affiche la position du héros
     public void textUpdate(Double positionHero, Pane p,Text texte){
         int x = (int) (Math.round(positionHero)/10);
         texte.setText("Score  : "+ x);
@@ -226,7 +226,7 @@ public class GameScene extends Scene {
         texte.setY(20);
 
     }
-    //Methode qui permet d'update la texte qui affiche le nombre de pokéballs
+    //Methode qui permet d'update le texte qui affiche le nombre de pokéballs
     public void updateAfficheNbPoke(Double nbpokeball, Text texte){
         int x = (int) Math.round(nbpokeball);
         texte.setText(" " +x);
@@ -287,7 +287,7 @@ public class GameScene extends Scene {
                 hero.takeDmg();
                 nbCoeur.updateNbCoeur();
                 supEnnemi(dracaufeuList.get(i), pane, dracaufeuList);
-                System.out.println("cheh");
+
             }
             for (int j = 0; j < hero.getProjectilist().size(); j++) { //traitement de la collision entre un ennemi et un projectile.
                 if (hero.getProjectilist().get(j).getHitBoxProj().intersects(dracaufeuList.get(i).getHitBoxEnnemi())){

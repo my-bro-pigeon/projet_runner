@@ -1,0 +1,13 @@
+Pour le jeu : 
+""""Ce runner est dédié à l'univers fantastique de Pokémon. 
+Afin de finir le jeu, il vous faudra réunir les 8 badges de la région Sinnoh en sautant pour les attraper mais attention M. Lancereau et 
+son armée de dracaufeu vont tenter de vous barrer la route...
+
+Pour le jeu seules la barre "espace" et la fleche vers la "droite" sont nécessaires. 
+Bon courage ! """
+
+
+Pour le code : 
+J'ai commenté les classes et les methodes qui nécessitent des explications, mais globalement dans toutes les classes,
+une position appelée "x" ou "y" correspond à la position de l'objet sur une scène tandis que une position "posX" ou "posY" correspond
+à la position du rectangle que l'on choisi sur une image type sprite sheet. 

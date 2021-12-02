@@ -8,6 +8,8 @@ import javafx.scene.text.Text;
 
 import java.util.ArrayList;
 
+/*  Classe a la base de tout les éléments animés du projet*/
+
 abstract public class AnimatedThing {
     private double longueur;
     private double hauteur;
@@ -58,10 +60,14 @@ abstract public class AnimatedThing {
     public double getLongueur() {return longueur;}
     public double getHauteur() {return hauteur;}
 
+    //methode qui fait evoluer la position du heros dans la scene en x et en y
+    // ainsi que la position (sauter, courir...) du heros en faisant varier posX et posY qui correspondent à la position choisie dans le sprite sheet.
     public void update(){
+        //evolution selon l'axe des x sur la scene
         if ((!this.indiceJump) &&(!this.indiceTir)) {
             this.posx +=84;
             if (this.posx ==504 ){ this.posx = 0;}}
+        //évolution en cas de saut
         if (jump>0) {
             if (this.tpsSaut < 105) {
                 this.y = this.y - 18;
@@ -82,6 +88,7 @@ abstract public class AnimatedThing {
                 this.jump = 0;
             }
         }
+        //évolution en cas de tir
         if (this.tir>0) {
             this.posy = 330;
             this.posx += 84;
@@ -92,6 +99,7 @@ abstract public class AnimatedThing {
                 this.tir =0;
             }
         }
+        //évolution en cas de saut et de tir en même temps, mais cela ne sert à rien dans le jeu pour le moment.
         if (this.jumpTir>0) {
             if (this.tpsSaut < 100) {
                 this.y = this.y - 20;
@@ -121,11 +129,12 @@ abstract public class AnimatedThing {
     }
 
     public void updateProjectil(double x, double y,Pane p){
+            // déplacement de la pokéball selon l'axe x dans la scene
             for (int i=0;i<projectilist.size();i++){
                 double xNmoinsUn = projectilist.get(i).getX();
                 projectilist.get(i).setX(xNmoinsUn+15);
 
-                //animation de la pokeball
+                //animation de la pokeball (pour la faire tourner)
                 if(projectilist.get(i).getOffset() >=16 && projectilist.get(i).getOffset() <=17){
                     projectilist.get(i).setPosx(125);
                     projectilist.get(i).setOffset(projectilist.get(i).getOffset()+1);
@@ -163,7 +172,7 @@ abstract public class AnimatedThing {
     }
 
     public void shotProj(Pane p,Double xHero,Double yHero,double posx, double posy){
-        Projectil proj = new Projectil("projectile", 30,20, 50, 285, "D:\\java\\projet_runner\\pokeall.png",posx,posy,0);
+        Projectil proj = new Projectil("projectile", 30,20, 50, 285, "D:\\java\\projet_runner\\images\\pokeall.png",posx,posy,0);
         proj.getImageView().setViewport(new Rectangle2D(posx,posy , this.longueur, this.hauteur));
         addProjectil(proj,p);
     }
@@ -198,8 +207,12 @@ abstract public class AnimatedThing {
         tir++;
     }
 
+    // la présence de trois methodes  hit box est lié au différents objets:
+    // pour le héros j'utilise getHitBox car la case du héros est bien trop large par rapport aux dimensions réelles du héros, le jeu serait impossible.
     public Rectangle2D getHitBox(){return new Rectangle2D(imageView.getX()+30,imageView.getY()+30,longueur-30, hauteur-30);}
+    //pour les ennemis j'utilise getHitBoxEnnemi car dracaufeu possède une très longue queue, je réduis sa hitBox pour rendre le jeu "jouable".
     public Rectangle2D getHitBoxEnnemi(){return new Rectangle2D(imageView.getX()+30,imageView.getY()+30,longueur-50, hauteur-30);}
+    // pour les projectiles ou les badges, les dimensions correspondent parfaitement à la taille  des objets donc pas besoin de réduire la hitBox.
     public Rectangle2D getHitBoxProj(){return new Rectangle2D(imageView.getX(),imageView.getY(),longueur, hauteur);}
 
 

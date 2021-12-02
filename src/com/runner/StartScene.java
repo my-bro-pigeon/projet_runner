@@ -1,4 +1,7 @@
 package com.runner;
+/*StartScene est la scène qui apparaît au lancement du jeu et après chaque fin de partie, elle comporte un background, une liste d'étoiles annimées
+ et un StaticThing qui clignote
+ !! J'utilise une variable pressEnter dans le code mais la touche du clavier pour jouer est bien SPACE*/
 
 import javafx.geometry.Rectangle2D;
 import javafx.scene.layout.Pane;
@@ -15,7 +18,7 @@ import java.util.ArrayList;
 
 public class StartScene extends Scene{
     private StaticThing background;
-    private StaticThing pressEnter;
+    private StaticThing pressEnter; //Variable qui correspond au SPACE
     private boolean indiceEnter=true;
     private int i=0;
     private Pane menuPane;
@@ -28,12 +31,14 @@ public class StartScene extends Scene{
         @Override
         public void handle(long l) {
             if (l - lastUpdate >= 50000000){
+                //gérer l'annimation des étoiles :
                 menuAddStar();
                 menuUpdate();
                 for (int i=0;i<starList.size();i++) {
                     starList.get(i).getImageView().setX(starList.get(i).getX());
                     starList.get(i).getImageView().setY(starList.get(i).getY());
                 }
+                //gérer le clignotement de logo PRESS SPACE
                 i++;
                 if (i==5) {
                     enterUpdate();
@@ -58,7 +63,7 @@ public class StartScene extends Scene{
         this.stage = stage;
         this.background = new StaticThing("menuBackground",0,0,600,400,path);
         menuPane.getChildren().add(background.getImageview());
-        pressEnter = new StaticThing("pressEnter",210,300,190,20,"D:\\java\\projet_runner\\pressStart.png");
+        pressEnter = new StaticThing("pressEnter",210,300,190,20,"D:\\java\\projet_runner\\images\\pressStart.png");
         this.menuPane.getChildren().add(pressEnter.getImageview());
         pressEnter.getImageview().setX(pressEnter.getX());
         pressEnter.getImageview().setY(pressEnter.getY());
@@ -68,6 +73,7 @@ public class StartScene extends Scene{
         setOnKeyPressed((event)->{
             switch (event.getCode()) {
                 case SPACE -> {
+                    //en cas d'appuie sur le bouton SPACE on lance la gameScene
                     timer.stop();
                     gameScene.getTimer().handle(0);
                     gameScene.getTimer().start();
@@ -86,7 +92,7 @@ public class StartScene extends Scene{
     }
     public void menuAddStar(){
         double nbAlea =  (int) (Math.random()*600);
-        Projectil star = new Projectil("star", 22,22, nbAlea, 0, "D:\\java\\projet_runner\\stars.png",2,0,0);
+        Projectil star = new Projectil("star", 22,22, nbAlea, 0, "D:\\java\\projet_runner\\images\\stars.png",2,0,0);
         star.getImageView().setViewport(new Rectangle2D(0,0 ,30 ,20));
         menuPane.getChildren().add(star.getImageView());
         starList.add(star);
@@ -94,10 +100,11 @@ public class StartScene extends Scene{
     }
     public void menuUpdate() {
         for (int i = 0; i < starList.size(); i++) {
+            //déplacement des étoiles selon l'axe y sur la scene
             double yNmoinsUn = starList.get(i).getY();
             starList.get(i).setY(yNmoinsUn + 10);
 
-            //animation des etoiles
+            //animation des étoiles
 
             if(starList.get(i).getOffset() >=8 && starList.get(i).getOffset() <=15){
                 starList.get(i).setPosy(80);

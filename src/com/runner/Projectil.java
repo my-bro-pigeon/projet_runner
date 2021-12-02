@@ -1,6 +1,6 @@
 package com.runner;
 
-/*classe qui me permet de faire une liste de projectiles pour le jeu mais également la liste des étoiles pour l'ecran
+/*classe qui me permet de faire une liste de projectiles pour le jeu mais également la liste des étoiles pour l'écran
 d'acceuil.  */
 
 public class Projectil extends AnimatedThing{
