@@ -73,6 +73,11 @@ public class StartScene extends Scene{
                     gameScene.getTimer().start();
                     gameScene.keyListener();
                     stage.setScene(gameScene);
+                    gameScene.getHero().setNbCoeur(6);
+                    gameScene.getNbCoeur().setNbCoeur(6);
+                    gameScene.getHero().setNbBadge(0);
+                    gameScene.getHero().setX(0);
+                    gameScene.getHero().setNbFireball(0);
 
 
                 }

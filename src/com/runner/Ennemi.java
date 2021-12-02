@@ -5,6 +5,8 @@ import javafx.scene.layout.Pane;
 
 import java.util.ArrayList;
 
+/*Classe qui va permettre de créer une liste d'ennemis et également la liste de badges Pokémons */
+
 public class Ennemi extends AnimatedThing {
     private double position = 0;
     public Ennemi(String fileName, double longueur, double hauteur, double x, double y, String imagePath, double positionX, double positionY) {
@@ -22,7 +24,17 @@ public class Ennemi extends AnimatedThing {
     }
 
 
+    /* Méthode permettant de déplacer un badge de la droite vers la gauche en faisant varier le X, on fait varier la vitesse de déplacement du badge */
+    public void updateBadge(){
+        double xNmoinsUn = getX();
+        setX(xNmoinsUn - 20);
 
+        getImageView().setViewport(new Rectangle2D(getPosx(), getPosy(), getLongueur(), getHauteur()));
+    }
+
+    /*Méthode permettant de faire déplacer un ennemi (des dracaufeux)  vers la gauche en faisant varier son x, de plus on gère également l'annimation du dracaufeu.
+    En effet, pour les différentes valeurs de "position" on fait varier PosX et PosY qui correspondent au choix de la postion du dracaufeu sur
+    le sprite sheet */
     public void updateDracaufeu() {
 
         double xNmoinsUn = getX();

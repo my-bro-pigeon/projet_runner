@@ -34,4 +34,16 @@ public class StaticThing {
     public double getY() {
         return y;
     }
+
+    public void setY(double y) {
+        this.y = y;
+    }
+
+    public double getLongueur() {
+        return longueur;
+    }
+
+    public double getLargeur() {
+        return largeur;
+    }
 }

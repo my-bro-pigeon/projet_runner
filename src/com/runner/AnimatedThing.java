@@ -198,6 +198,11 @@ abstract public class AnimatedThing {
         tir++;
     }
 
+    public Rectangle2D getHitBox(){return new Rectangle2D(imageView.getX()+30,imageView.getY()+30,longueur-30, hauteur-30);}
+    public Rectangle2D getHitBoxEnnemi(){return new Rectangle2D(imageView.getX()+30,imageView.getY()+30,longueur-50, hauteur-30);}
+    public Rectangle2D getHitBoxProj(){return new Rectangle2D(imageView.getX(),imageView.getY(),longueur, hauteur);}
+
+
     public boolean isIndiceJump() {
         return indiceJump;
     }
