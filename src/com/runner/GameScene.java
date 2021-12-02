@@ -131,6 +131,12 @@ public class GameScene extends Scene {
                     hero.update();
                     hero.getImageView().setX(hero.getX() - camera.getX());
                     hero.getImageView().setY(hero.getY());
+                    for (int i = 0; i < dracaufeuList.size(); i++) {
+                        supEnnemi(dracaufeuList.get(i), pane, dracaufeuList);
+                    }
+                    for (int i = 0; i < hero.getProjectilist().size(); i++) {
+                        hero.supProjectil(hero.getProjectilist().get(i),pane);
+                    }
                     if(blackScreen.getOffset()==0){
                         pane.getChildren().addAll(blackScreen.getImageView());
                         blackScreen.setOffset(1);
